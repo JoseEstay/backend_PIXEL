@@ -25,6 +25,11 @@ export class ProductModel {
     return result.rows[0]
   }
 
+  static async delete (id) {
+    const result = await pool.query('DELETE FROM products WHERE id = $1 RETURNING *', [id])
+    return result.rows[0]
+  }
+
   static async update (id, { input }) {
     const { name, description, price, stock, category_id, is_active = true, sku, condition, image_url } = input
     const result = await pool.query(
@@ -36,15 +41,9 @@ export class ProductModel {
 
   static async updatePartial (id, { input }) {
     const columns = {
-      name: 'name',
-      description: 'description',
-      price: 'price',
-      stock: 'stock',
-      category_id: 'category_id',
-      is_active: 'is_active',
-      sku: 'sku',
-      condition: 'condition',
-      image_url: 'image_url'
+      name: 'name', description: 'description', price: 'price', stock: 'stock',
+      category_id: 'category_id', is_active: 'is_active', sku: 'sku',
+      condition: 'condition', image_url: 'image_url'
     }
     const fields = Object.keys(input)
     const setClause = fields.map((field, index) => `${columns[field]} = $${index + 1}`).join(', ')
