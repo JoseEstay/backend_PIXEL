@@ -30,7 +30,9 @@ La API queda disponible en `http://localhost:1234`.
 - `GET /categories` — lista categorías
 - `GET /categories/:id` — obtiene una categoría
 - `POST /categories` — crea una categoría
-- `PUT /categories/:id` — actualiza una categoría
+- `PUT /categories/:id` — reemplaza una categoría
+- `PATCH /categories/:id` — actualiza solo los campos enviados
+- `DELETE /categories/:id` — elimina una categoría
 
 ### Productos (`/products`)
 
@@ -39,5 +41,6 @@ La API queda disponible en `http://localhost:1234`.
 - `POST /products` — crea un producto
 - `PUT /products/:id` — reemplaza los datos de un producto
 - `PATCH /products/:id` — actualiza solo los campos enviados
+- `DELETE /products/:id` — elimina un producto
 
 No publiques tu archivo `.env`; contiene credenciales locales. Usa `.env.example` como plantilla.
