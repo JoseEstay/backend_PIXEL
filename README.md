@@ -1,6 +1,6 @@
 # Pixel Backend
 
-API REST para gestionar categorías, construida con Node.js, Express y PostgreSQL.
+API REST de categorías y productos construida con Node.js, Express y PostgreSQL.
 
 ## Requisitos
 
@@ -15,7 +15,7 @@ pnpm install
 cp .env.example .env
 ```
 
-Completa las variables de PostgreSQL en `.env`. La aplicación usa una tabla `categories` con las columnas `id`, `name`, `slug` y `description`.
+Completa las variables de PostgreSQL en `.env`. La aplicación usa tablas `categories` y `products`.
 
 ```bash
 pnpm dev
@@ -23,22 +23,21 @@ pnpm dev
 
 La API queda disponible en `http://localhost:1234`.
 
-## Rutas
+## Endpoints
 
-- `GET /` — mensaje de bienvenida
-- `GET /categories` — lista las categorías
+### Categorías (`/categories`)
+
+- `GET /categories` — lista categorías
 - `GET /categories/:id` — obtiene una categoría
 - `POST /categories` — crea una categoría
 - `PUT /categories/:id` — actualiza una categoría
 
-Ejemplo de cuerpo para crear o actualizar:
+### Productos (`/products`)
 
-```json
-{
-  "name": "Accesorios",
-  "slug": "accesorios",
-  "description": "Categoría de accesorios"
-}
-```
+- `GET /products` — lista productos con el nombre de su categoría
+- `GET /products/:id` — obtiene un producto
+- `POST /products` — crea un producto
+- `PUT /products/:id` — reemplaza los datos de un producto
+- `PATCH /products/:id` — actualiza solo los campos enviados
 
-No publiques tu archivo `.env`; contiene credenciales locales.
+No publiques tu archivo `.env`; contiene credenciales locales. Usa `.env.example` como plantilla.
