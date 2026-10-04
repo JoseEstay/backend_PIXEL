@@ -1,6 +1,7 @@
 # Pixel Backend
 
 API REST de categorías y productos construida con Node.js, Express y PostgreSQL.
+(Copia de repositorio privado)
 
 ## Requisitos
 
