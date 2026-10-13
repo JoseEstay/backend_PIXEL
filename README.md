@@ -1,7 +1,6 @@
 # Pixel Backend
 
 API REST de categorías y productos construida con Node.js, Express y PostgreSQL.
-(Copia de repositorio privado)
 
 ## Requisitos
 
@@ -16,32 +15,36 @@ pnpm install
 cp .env.example .env
 ```
 
-Completa las variables de PostgreSQL en `.env`. La aplicación usa tablas `categories` y `products`.
+Completa las variables de PostgreSQL en `.env`. La aplicación usa tablas `categories`, `products` y `users`.
 
 ```bash
 pnpm dev
 ```
 
-La API queda disponible en `http://localhost:1234`.
+La API usa el puerto `3002` por defecto.
 
 ## Endpoints
 
+### Autenticación (`/auth`)
+
+- `POST /auth/register` — registra una cuenta local. La contraseña se almacena con hash bcrypt.
+
 ### Categorías (`/categories`)
 
-- `GET /categories` — lista categorías
-- `GET /categories/:id` — obtiene una categoría
-- `POST /categories` — crea una categoría
-- `PUT /categories/:id` — reemplaza una categoría
-- `PATCH /categories/:id` — actualiza solo los campos enviados
-- `DELETE /categories/:id` — elimina una categoría
+- `GET /categories`
+- `GET /categories/:id`
+- `POST /categories`
+- `PUT /categories/:id`
+- `PATCH /categories/:id`
+- `DELETE /categories/:id`
 
 ### Productos (`/products`)
 
-- `GET /products` — lista productos con el nombre de su categoría
-- `GET /products/:id` — obtiene un producto
-- `POST /products` — crea un producto
-- `PUT /products/:id` — reemplaza los datos de un producto
-- `PATCH /products/:id` — actualiza solo los campos enviados
-- `DELETE /products/:id` — elimina un producto
+- `GET /products`
+- `GET /products/:id`
+- `POST /products`
+- `PUT /products/:id`
+- `PATCH /products/:id`
+- `DELETE /products/:id`
 
 No publiques tu archivo `.env`; contiene credenciales locales. Usa `.env.example` como plantilla.
