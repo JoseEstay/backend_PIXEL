@@ -3,6 +3,7 @@ import { dataBase } from '../config/db.js'
 export class ProductModel {
   static async create ({ input }) {
     const { name, description, price, stock, category_id, is_active = true, sku, condition, image_url } = input
+
     const result = await dataBase.query(
       'INSERT INTO products (name, description, price, stock, category_id, is_active, sku, condition, image_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
       [name, description, price, stock, category_id, is_active, sku, condition, image_url]
@@ -41,17 +42,28 @@ export class ProductModel {
 
   static async updatePartial (id, { input }) {
     const columns = {
-      name: 'name', description: 'description', price: 'price', stock: 'stock',
-      category_id: 'category_id', is_active: 'is_active', sku: 'sku',
-      condition: 'condition', image_url: 'image_url'
+      name: 'name',
+      description: 'description',
+      price: 'price',
+      stock: 'stock',
+      category_id: 'category_id',
+      is_active: 'is_active',
+      sku: 'sku',
+      condition: 'condition',
+      image_url: 'image_url'
     }
+
     const fields = Object.keys(input)
-    const setClause = fields.map((field, index) => `${columns[field]} = $${index + 1}`).join(', ')
+    const setClause = fields
+      .map((field, index) => `${columns[field]} = $${index + 1}`)
+      .join(', ')
     const values = fields.map((field) => input[field])
+
     const result = await dataBase.query(
       `UPDATE products SET ${setClause} WHERE id = $${fields.length + 1} RETURNING *`,
       [...values, id]
     )
+
     return result.rows[0]
   }
 }
