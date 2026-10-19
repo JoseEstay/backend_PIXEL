@@ -4,7 +4,11 @@ import { CategoryModel } from '../models/category.model.js'
 export class categoryController {
   static async create (req, res) {
     const result = validateCategory(req.body)
-    if (!result.success) return res.status(400).json({ error: result.error.issues })
+
+    if (!result.success) {
+      return res.status(400).json({ error: result.error.issues })
+    }
+
     try {
       const newCategory = await CategoryModel.create({ input: result.data })
       return res.status(201).json(newCategory)
@@ -14,7 +18,8 @@ export class categoryController {
     }
   }
 
-  static async getAll (req, res) {
+  // GET ALL
+  static async getAll (_req, res) {
     try {
       const categories = await CategoryModel.getAll()
       return res.status(200).json(categories)
@@ -24,11 +29,14 @@ export class categoryController {
     }
   }
 
+  // GET BY ID
   static async getById (req, res) {
     const { id } = req.params
     try {
       const category = await CategoryModel.getById(id)
-      if (!category) return res.status(404).json({ error: 'Categoria no encontrada' })
+      if (!category) {
+        return res.status(404).json({ error: 'Categoria no encontrada' })
+      }
       return res.status(200).json(category)
     } catch (error) {
       console.error(error)
@@ -36,11 +44,14 @@ export class categoryController {
     }
   }
 
+  // DELETE
   static async delete (req, res) {
     const { id } = req.params
     try {
       const category = await CategoryModel.getById(id)
-      if (!category) return res.status(404).json({ error: 'Categoria no encontrada' })
+      if (!category) {
+        return res.status(404).json({ error: 'Categoria no encontrada' })
+      }
       await CategoryModel.delete(id)
       return res.status(200).json({ message: 'Categoria eliminada correctamente' })
     } catch (error) {
@@ -49,13 +60,20 @@ export class categoryController {
     }
   }
 
+  // UPDATE
   static async update (req, res) {
     const { id } = req.params
     const result = validateCategory(req.body)
-    if (!result.success) return res.status(400).json({ error: result.error.issues })
+
+    if (!result.success) {
+      return res.status(400).json({ error: result.error.issues })
+    }
+
     try {
       const updatedCategory = await CategoryModel.update(id, { input: result.data })
-      if (!updatedCategory) return res.status(404).json({ error: 'Categoria no encontrada' })
+      if (!updatedCategory) {
+        return res.status(404).json({ error: 'Categoria no encontrada' })
+      }
       return res.status(200).json(updatedCategory)
     } catch (error) {
       console.error(error)
@@ -66,10 +84,16 @@ export class categoryController {
   static async patch (req, res) {
     const { id } = req.params
     const result = validateCategoryPatch(req.body)
-    if (!result.success) return res.status(400).json({ error: result.error.issues })
+
+    if (!result.success) {
+      return res.status(400).json({ error: result.error.issues })
+    }
+
     try {
       const updatedCategory = await CategoryModel.updatePartial(id, { input: result.data })
-      if (!updatedCategory) return res.status(404).json({ error: 'Categoria no encontrada' })
+      if (!updatedCategory) {
+        return res.status(404).json({ error: 'Categoria no encontrada' })
+      }
       return res.status(200).json(updatedCategory)
     } catch (error) {
       console.error(error)
